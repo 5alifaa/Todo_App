@@ -1,18 +1,16 @@
-import { validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
+import { validationResult } from 'express-validator';
 
-// @desc    Middleware to find validation errors
-const validatorMiddleware = (
+export const validationMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction,
-): void | Promise<void> => {
+): void => {
   const errors = validationResult(req);
+  console.log(errors);
   if (!errors.isEmpty()) {
     res.status(400).json({ errors: errors.array() });
     return;
   }
   next();
 };
-
-export default validatorMiddleware;
