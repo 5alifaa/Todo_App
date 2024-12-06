@@ -4,6 +4,9 @@ import morgan from 'morgan';
 
 const app = express();
 
+app.use(express.json({ limit: '10kb' })); // for parsing application/json, set limit to 10kb
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
