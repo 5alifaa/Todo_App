@@ -1,6 +1,7 @@
 import express from 'express';
 import router from './routes/router';
 import morgan from 'morgan';
+require('dotenv').config();
 
 const app = express();
 
