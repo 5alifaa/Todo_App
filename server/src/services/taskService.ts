@@ -1,3 +1,4 @@
+import asyncHandler from 'express-async-handler';
 import { NextFunction, Request, Response } from 'express';
 import { CustomRequest } from '../utils/CustomTypes';
 import { PrismaClient } from '@prisma/client';
