@@ -35,3 +35,21 @@ export const registerValidator = [
 
   validationMiddleware,
 ];
+
+export const loginValidator = [
+  body('email')
+    .trim()
+    .notEmpty()
+    .withMessage('Email is required')
+    .isEmail()
+    .withMessage('Invalid email format'),
+
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password is required')
+    .isLength({ min: 6, max: 20 })
+    .withMessage('Password must be between 6 to 20 characters long'),
+
+  validationMiddleware,
+];
