@@ -45,8 +45,12 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
   });
   const data = { tasks: user.tasks.reverse() };
   // 4. Send response
-  res.status(201).json({ data });
-};
+  res.status(201).json({
+    status: 'success',
+    result: user.tasks.length,
+    data: user.tasks,
+  });
+});
 
 // @desc    Update a task
 // @route   PUT /api/tasks/:id
