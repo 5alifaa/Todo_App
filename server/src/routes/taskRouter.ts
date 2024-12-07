@@ -1,23 +1,21 @@
-import { Router } from "express";
+import { Router } from 'express';
+import { protect } from '../services/authService';
+import { createTask, getTasks, setUserId } from '../services/taskService';
+import {
+  createTaskValidator,
+  getTasksValidator,
+} from '../utils/validators/taskValidator';
 
 const taskRouter = Router();
 
-taskRouter.get("/", (req, res) => {
-  res.send("Hello from task router");
-});
+// Protect All Routes of Task Router
+taskRouter.use(protect);
 
-taskRouter.get("/task", (req, res) => {
-  res.send("Get All Tasks");
-});
+taskRouter
+  .route('/')
+  .get(setUserId, getTasksValidator, getTasks)
+  .post(setUserId, createTaskValidator, createTask);
 
-taskRouter.post("/task", (req, res) => {
-  res.send("Create a Task");
-});
+taskRouter.route('/:id').put().delete();
 
-taskRouter.put("/task/:id", (req, res) => {
-  res.send("Update a Task");
-});
-
-taskRouter.delete("/task/:id", (req, res) => {
-  res.send("Delete a Task");
-});
+export default taskRouter;
