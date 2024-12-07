@@ -16,9 +16,25 @@ export const setUserId = (
 // @desc    Get all tasks
 // @route   GET /api/tasks
 // @access  Private
-export const getTasks = async (req: Request, res: Response) => {
-  res.send('Get All Tasks');
-};
+export const getTasks = asyncHandler(async (req: Request, res: Response) => {
+  // 1. Get user input
+  const { userId } = req.body;
+  // 2. Validate user input (validation layer)
+  // 3. Get tasks from database
+  const tasks = await prisma.task.findMany({
+    where: {
+      userId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+  // 4. Send response
+  res.status(200).json({
+    result: tasks.length,
+    data: tasks,
+  });
+});
 
 // @desc    Create a task
 // @route   POST /api/tasks
