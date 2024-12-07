@@ -11,6 +11,9 @@ const taskRouter = Router();
 // Protect All Routes of Task Router
 taskRouter.use(protect);
 
+// Set User ID Middleware
+taskRouter.use(setUserId);
+
 taskRouter
   .route('/')
   .get(setUserId, getTasksValidator, getTasks)
