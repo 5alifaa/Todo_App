@@ -22,10 +22,10 @@ export const createTaskValidator = [
 ];
 
 export const updateTaskValidator = [
-  body('id')
+  check('id')
     .isMongoId()
     .withMessage('Task ID is invalid')
-    .custom((value, { req }) => {
+    .custom((value, { req }) =>
       prisma.task
         .findUnique({
           where: {
@@ -44,17 +44,17 @@ export const updateTaskValidator = [
               new Error('Task does not belong to the user'),
             );
           }
-        });
-    }),
-  body('title')
+        }),
+    ),
+  check('title')
     .optional()
     .isLength({ max: 50 })
     .withMessage('Title should not exceed 50 characters'),
-  body('completed')
+  check('completed')
     .optional()
     .isBoolean()
     .withMessage('Completed should be a boolean'),
-  body('userId').notEmpty().withMessage('User ID is required'),
+  check('userId').notEmpty().withMessage('User ID is required'),
 
   validationMiddleware,
 ];
