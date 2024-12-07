@@ -64,7 +64,7 @@ export const deleteTaskValidator = [
     .isMongoId()
     .withMessage('Task ID is invalid')
     .custom((value, { req }) => {
-      prisma.task
+      return prisma.task
         .findUnique({
           where: {
             id: value,
