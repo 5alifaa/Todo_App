@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 
-export const validationMiddleware = (
+const validationMiddleware = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -14,3 +14,5 @@ export const validationMiddleware = (
   }
   next();
 };
+
+export default validationMiddleware;
