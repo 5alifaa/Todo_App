@@ -23,7 +23,7 @@ export const getTasks = async (req: Request, res: Response) => {
 // @desc    Create a task
 // @route   POST /api/tasks
 // @access  Private
-export const createTask = async (req: Request, res: Response) => {
+export const createTask = asyncHandler(async (req: Request, res: Response) => {
   // 1. Get user input
   const { title, userId } = req.body;
   // 2. Validate user input (validation layer)
@@ -51,13 +51,13 @@ export const createTask = async (req: Request, res: Response) => {
 // @desc    Update a task
 // @route   PUT /api/tasks/:id
 // @access  Private
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = asyncHandler(async (req: Request, res: Response) => {
   res.send('Update a Task');
-};
+});
 
 // @desc    Delete a task
 // @route   DELETE /api/tasks/:id
 // @access  Private
-export const deleteTask = async (req: Request, res: Response) => {
+export const deleteTask = asyncHandler(async (req: Request, res: Response) => {
   res.send('Delete a Task');
-};
+});
