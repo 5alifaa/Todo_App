@@ -16,8 +16,8 @@ taskRouter.use(setUserId);
 
 taskRouter
   .route('/')
-  .get(setUserId, getTasksValidator, getTasks)
-  .post(setUserId, createTaskValidator, createTask);
+  .get(getTasksValidator, getTasks)
+  .post(createTaskValidator, createTask);
 
 taskRouter.route('/:id').put().delete();
 
