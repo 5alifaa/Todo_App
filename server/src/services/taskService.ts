@@ -110,5 +110,30 @@ export const updateTask = asyncHandler(async (req: Request, res: Response) => {
 // @route   DELETE /api/tasks/:id
 // @access  Private
 export const deleteTask = asyncHandler(async (req: Request, res: Response) => {
-  res.send('Delete a Task');
+  // 1. Get user input
+  const { userId } = req.body;
+  const { id } = req.params;
+  // 2. Validate user input (validation layer)
+  // 3. Delete task from database
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      tasks: {
+        delete: {
+          id,
+        },
+      },
+    },
+    include: {
+      tasks: true,
+    },
+  });
+  // 4. Send response
+  res.status(200).json({
+    status: 'success',
+    result: user.tasks.length,
+    data: user.tasks,
+  });
 });
