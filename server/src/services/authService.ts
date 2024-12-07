@@ -97,7 +97,7 @@ export const protect = asyncHandler(
     // 5. Attach user to request object
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, tasksIds, ...rest } = user;
+    const { password, ...rest } = user;
     req.user = rest;
     console.log(req.user);
 
