@@ -59,7 +59,6 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
       tasks: true,
     },
   });
-  const data = { tasks: user.tasks.reverse() };
   // 4. Send response
   res.status(201).json({
     status: 'success',
