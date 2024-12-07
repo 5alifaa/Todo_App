@@ -1,6 +1,9 @@
 import express from 'express';
 import router from './routes/router';
 import morgan from 'morgan';
+import globalError from './middlewares/globalErrorMiddleware';
+import ApiError from './utils/ApiError';
+
 require('dotenv').config();
 
 const app = express();
@@ -15,5 +18,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api', router);
+
+app.use('*', (req, _res, next) => {
+  next(new ApiError(405, `Can't find ${req.originalUrl} on this server!`));
+});
+
+// Global error handler
+app.use(globalError);
 
 export default app;
