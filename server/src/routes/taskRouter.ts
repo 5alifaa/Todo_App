@@ -1,9 +1,17 @@
 import { Router } from 'express';
 import { protect } from '../services/authService';
-import { createTask, getTasks, setUserId } from '../services/taskService';
+import {
+  createTask,
+  deleteTask,
+  getTasks,
+  setUserId,
+  updateTask,
+} from '../services/taskService';
 import {
   createTaskValidator,
+  deleteTaskValidator,
   getTasksValidator,
+  updateTaskValidator,
 } from '../utils/validators/taskValidator';
 
 const taskRouter = Router();
@@ -19,6 +27,9 @@ taskRouter
   .get(getTasksValidator, getTasks)
   .post(createTaskValidator, createTask);
 
-taskRouter.route('/:id').put().delete();
+taskRouter
+  .route('/:id')
+  .put(updateTaskValidator, updateTask)
+  .delete(deleteTaskValidator, deleteTask);
 
 export default taskRouter;
