@@ -33,7 +33,7 @@ export const getTasks = asyncHandler(async (req: Request, res: Response) => {
   // 4. Send response
   res.status(200).json({
     result: tasks.length,
-    data: tasks,
+    tasks,
   });
 });
 
@@ -45,26 +45,20 @@ export const createTask = asyncHandler(async (req: Request, res: Response) => {
   const { title, userId } = req.body;
   // 2. Validate user input (validation layer)
   // 3. Save task to database
-  const user = await prisma.user.update({
-    where: {
-      id: userId,
-    },
+  const task = await prisma.task.create({
     data: {
-      tasks: {
-        create: {
-          title,
+      title,
+      user: {
+        connect: {
+          id: userId,
         },
       },
-    },
-    include: {
-      tasks: true,
     },
   });
   // 4. Send response
   res.status(201).json({
     status: 'success',
-    result: user.tasks.length,
-    data: user.tasks,
+    task,
   });
 });
 
@@ -137,3 +131,22 @@ export const deleteTask = asyncHandler(async (req: Request, res: Response) => {
     data: user.tasks,
   });
 });
+
+// @desc    Delete all tasks
+// @route   DELETE /api/tasks
+// @access  Private
+export const deleteAllTasks = asyncHandler(
+  async (req: Request, res: Response) => {
+    // 1. Get user input
+    const { userId } = req.body;
+    // 2. Validate user input (validation layer)
+    // 3. Delete all tasks of specific user from database
+    await prisma.task.deleteMany({
+      where: {
+        userId,
+      },
+    });
+    // 4. Send response
+    res.status(204).json();
+  },
+);
