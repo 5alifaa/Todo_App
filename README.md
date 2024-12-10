@@ -8,13 +8,14 @@ This repository contains the complete codebase for the **To-Do List App**, featu
 
 ```
 root/
-├── mobile-app/          # React Native app built with Expo
-│   ├── docs/            # Documentation for the mobile app
-│   └── README.md        # Mobile app overview
-├── backend-server/      # Node.js backend server
-│   ├── docs/            # Documentation for the backend server
-│   └── README.md        # Backend server overview
-└── README.md            # Repository-level overview
+├── todo-app/                  # React Native app built with Expo
+│   └── docs/                  # Documentation for the mobile app
+|       |── screenshots/       # Screenshots of the mobile app
+│       └── documentation.md   # Mobile app overview
+├── server/                    # Node.js backend server
+│   └── docs/                  # Documentation for the backend server
+│       └── documentation.md   # Backend server overview
+└── README.md                  # Repository-level overview
 ```
 
 ---
@@ -23,15 +24,15 @@ root/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/makhalifa/Todo_App.git
+cd Todo_App
 ```
 
 ### 2. Set Up the Backend Server
-Follow the steps in the [backend-server README](./backend-server/README.md).
+Follow the steps in the [Backend Server Documentation](./server/docs/documentation.md).
 
 ### 3. Set Up the Mobile App
-Follow the steps in the [mobile-app README](./mobile-app/README.md).
+Follow the steps in the [Mobile App Documentation](./todo-app/docs/documentation.md).
 
 ---
 
