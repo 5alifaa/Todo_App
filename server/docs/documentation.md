@@ -1,4 +1,3 @@
-
 # 🌐 Backend Server Documentation
 
 This document provides setup and deployment instructions for the **To-Do List App Backend Server**.
@@ -9,15 +8,17 @@ This document provides setup and deployment instructions for the **To-Do List Ap
 
 ```
 backend-server/
+├── dist/             # Compiled TypeScript code
+├── prisma/           # Prisma schema and migrations
 ├── src/              # Main server logic
-│   ├── routes/       # API route handlers
-│   ├── controllers/  # Business logic
-│   ├── models/       # Database models
 │   ├── middleware/   # Custom middleware (e.g., auth)
-├── config/           # Configuration (e.g., environment variables)
-├── tests/            # Unit and integration tests
+│   ├── routes/       # API route handlers
+│   ├── services/  # Business logic
+│   ├── utils/        # Utility functions
+|   |   |── validators/ # Request validators
+│   ├── app.ts        # Express app setup
+│   ├── server.ts     # Server entry point
 ├── package.json      # Dependencies and scripts
-├── README.md         # Overview
 ```
 
 ---
@@ -33,36 +34,74 @@ backend-server/
 ## 🛠️ Setup Instructions
 
 ### 1. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 2. Create a `.env` File
+
 Add a `.env` file in the root directory:
+
 ```env
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/todo
 JWT_SECRET=your-jwt-secret
 ```
 
-### 3. Start the Server
+### 3. Build and Start the Server
+
 ```bash
+npm run build
 npm start
 ```
 
 ---
 
+## API Documentation
+
+For detailed API documentation, please refer to the [API Documentation](https://documenter.getpostman.com/view/12567532/2sAYHwH3yT).
+
 ## 🧪 API Endpoints
 
 ### Authentication
+
 - **POST** `/auth/register` - Register a new user.
 - **POST** `/auth/login` - Authenticate and receive a JWT.
 
 ### To-Do Management
+
 - **GET** `/tasks` - Fetch all tasks.
 - **POST** `/tasks` - Add a new task.
+- **DELETE** `/tasks` - Delete all tasks.
 - **PUT** `/tasks/:id` - Update a task.
 - **DELETE** `/tasks/:id` - Delete a task.
+
+## 🗂️ Data Models
+
+### User
+
+```json
+{
+   "id": "string",
+   "name": "string",
+   "email": "string",
+   "password": "string",
+   "createdAt": "date"
+}
+```
+
+### Task
+
+```json
+{
+   "id": "string",
+   "title": "string",
+   "completed": "boolean",
+   "userId": "string",
+   "createdAt": "date",
+}
+```
 
 <!-- --- -->
 
