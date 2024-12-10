@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { protect } from '../services/authService';
 import {
   createTask,
+  deleteAllTasks,
   deleteTask,
   getTasks,
   setUserId,
@@ -25,7 +26,8 @@ taskRouter.use(setUserId);
 taskRouter
   .route('/')
   .get(getTasksValidator, getTasks)
-  .post(createTaskValidator, createTask);
+  .post(createTaskValidator, createTask)
+  .delete(deleteAllTasks);
 
 taskRouter
   .route('/:id')
