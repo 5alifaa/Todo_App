@@ -30,7 +30,7 @@ function InnerLayout() {
         if (confirmLogout) {
           await logout();
         }
-      } else {
+      } else if (Platform.OS === 'android' || Platform.OS === 'ios') {
         Alert.alert('Confirm Logout', 'Are you sure you want to log out?', [
           { text: 'Cancel', style: 'cancel' },
           {
@@ -39,6 +39,8 @@ function InnerLayout() {
             onPress: async () => await logout(),
           },
         ]);
+      } else {
+        await logout();
       }
     } catch (error) {
       Alert.alert('Logout failed', String(error));
@@ -64,7 +66,8 @@ function InnerLayout() {
         options={{
           title: '✔️ Tick It',
           headerTitleAlign: 'center',
-          headerLeft: () => null,
+          headerLeft: () => null, // Remove back button when required
+          headerBackVisible: false, // Explicitly hide back button if needed
           headerRight: () => (
             <TouchableOpacity
               onPress={handleLogoutWithConfirmation}
