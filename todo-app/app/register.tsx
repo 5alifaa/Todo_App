@@ -43,7 +43,7 @@ export default function RegisterScreen() {
     }
   }, [userToken]);
 
-  const handleSubmit = async (values: {
+  const handleRegistration = async (values: {
     name: string;
     email: string;
     password: string;
@@ -57,7 +57,7 @@ export default function RegisterScreen() {
     } catch (error) {
       Alert.alert(
         'Registration Error',
-        'Something went wrong. Please try again.'
+        JSON.stringify((error as any).response?.data?.message) || 'An error occurred'
       );
       console.error(error);
     }
@@ -78,7 +78,7 @@ export default function RegisterScreen() {
           confirmPassword: '',
         }}
         validationSchema={RegisterSchema}
-        onSubmit={handleSubmit}
+        onSubmit={handleRegistration}
       >
         {({
           handleChange,
