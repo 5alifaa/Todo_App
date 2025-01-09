@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id             Int            @id @default(autoincrement())
+  name           String
+  email          String         @unique
+  password       String?
+  third_party_id String?
+  provider       String?
+  picture        String?
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @updatedAt
+  tasks          tasks[] // Relation with tasks
+  tags           tags[] // Relation with tags
+  refreshTokens  RefreshToken[]
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  user_id   Int
+  user      users    @relation(fields: [user_id], references: [id])
+  expiresAt DateTime
+}
+
+model tasks {
+  id           Int         @id @default(autoincrement())
+  title        String
+  description  String? // Optional description
+  is_completed Boolean     @default(false)
+  due_date     DateTime? // Optional due date
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+  user_id      Int // Foreign key to users
+  users        users       @relation(fields: [user_id], references: [id])
+  tasks_tags   task_tags[] // Many-to-Many relation with tags
+}
+
+model tags {
+  id         Int         @id @default(autoincrement())
+  name       String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  user_id    Int // Foreign key to users
+  users      users       @relation(fields: [user_id], references: [id])
+  tasks      task_tags[] // Many-to-Many relation with tasks
+
+  @@unique([name, user_id]) // Unique constraint
+}
+
+model task_tags {
+  task_id Int // Foreign key to tasks
+  tag_id  Int // Foreign key to tags
+  tasks   tasks @relation(fields: [task_id], references: [id])
+  tags    tags  @relation(fields: [tag_id], references: [id])
+
+  @@id([task_id, tag_id]) // Composite primary key
+}
