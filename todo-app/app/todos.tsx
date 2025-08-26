@@ -190,7 +190,7 @@ export default function TodoScreen() {
         <TextInput
           value={newTask}
           onChangeText={setNewTask}
-          placeholder="Add new task"
+          placeholder="Taskat Gedeedah"
           style={styles.textInput}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddTodo}>
